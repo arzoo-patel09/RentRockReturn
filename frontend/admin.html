@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Admin | Rent Rock Return</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Rent Rock Return
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#outfits">
+                Outfits
+            </a>
+
+            <a href="my-booking.html">
+                My Booking
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Admin Page -->
+
+    <section class="booking-page">
+
+        <div class="booking-container">
+
+            <p class="small-title">
+                RENT ROCK RETURN
+            </p>
+
+            <h1>
+                Admin — Payment Verification
+            </h1>
+
+            <p class="booking-intro">
+                Verify customer payments before confirming bookings.
+            </p>
+
+
+            <!-- Booking List -->
+
+            <div id="admin-booking-list">
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 Rent Rock Return. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <script>
+
+        /* =========================================
+           GET BOOKINGS
+           ========================================= */
+
+        let bookingList =
+            JSON.parse(
+                localStorage.getItem(
+                    "rentRockReturnBooking"
+                )
+            ) || [];
+
+
+
+        const container =
+            document.getElementById(
+                "admin-booking-list"
+            );
+
+
+
+        /* =========================================
+           FORMAT DATE
+           ========================================= */
+
+        function formatDate(dateString) {
+
+            if (!dateString) {
+                return "Not selected";
+            }
+
+
+            const date =
+                new Date(
+                    dateString + "T00:00:00"
+                );
+
+
+            const day =
+                String(
+                    date.getDate()
+                ).padStart(2, "0");
+
+
+            const month =
+                String(
+                    date.getMonth() + 1
+                ).padStart(2, "0");
+
+
+            const year =
+                date.getFullYear();
+
+
+            return `${day}/${month}/${year}`;
+
+        }
+
+
+
+        /* =========================================
+           DISPLAY BOOKINGS
+           ========================================= */
+
+        function displayBookings() {
+
+            if (bookingList.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="form-section">
+
+                        <h2>
+                            No Bookings
+                        </h2>
+
+                        <p>
+                            There are currently no customer bookings.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML = "";
+
+
+            bookingList.forEach(
+                function(item, index) {
+
+
+                    const card =
+                        document.createElement("div");
+
+
+                    card.className =
+                        "form-section";
+
+
+                    let statusText =
+                        "🟡 Pending Verification";
+
+
+                    if (
+                        item.paymentConfirmed === true
+                    ) {
+
+                        statusText =
+                            "🔴 Booking Confirmed";
+
+                    }
+
+
+                    card.innerHTML = `
+
+                        <h2>
+                            ${item.name}
+                        </h2>
+
+
+                        <p>
+                            <strong>
+                                Rental Date:
+                            </strong>
+
+                            ${formatDate(
+                                item.rentalDate
+                            )}
+                        </p>
+
+
+                        <p>
+                            <strong>
+                                Return Date:
+                            </strong>
+
+                            ${formatDate(
+                                item.rentalDate
+                            )}
+                        </p>
+
+
+                        <p>
+                            <strong>
+                                Rental Amount:
+                            </strong>
+
+                            ₹${item.price}
+                        </p>
+
+
+                        <p>
+                            <strong>
+                                Payment Amount:
+                            </strong>
+
+                            ₹${item.paymentAmount || 0}
+                        </p>
+
+
+                        <p>
+                            <strong>
+                                UTR / Transaction ID:
+                            </strong>
+
+                            ${item.utr || "Not submitted"}
+                        </p>
+
+
+                        <p>
+                            <strong>
+                                Status:
+                            </strong>
+
+                            ${statusText}
+                        </p>
+
+
+                        ${
+                            item.paymentConfirmed !== true
+                            ?
+
+                            `
+
+                            <div style="
+                                margin-top:20px;
+                                display:flex;
+                                gap:10px;
+                                flex-wrap:wrap;
+                            ">
+
+                                <button
+                                    type="button"
+                                    class="btn"
+                                    onclick="confirmBooking(${index})"
+                                >
+                                    Confirm Payment
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="remove-btn"
+                                    onclick="rejectBooking(${index})"
+                                >
+                                    Reject Payment
+                                </button>
+
+                            </div>
+
+                            `
+
+                            :
+
+                            `
+
+                            <p style="
+                                margin-top:20px;
+                                font-weight:bold;
+                            ">
+                                ✅ Payment Verified
+                            </p>
+
+                            `
+
+                        }
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           CONFIRM PAYMENT
+           ========================================= */
+
+        function confirmBooking(index) {
+
+            if (
+                !bookingList[index]
+            ) {
+                return;
+            }
+
+
+            const paymentAmount =
+                Number(
+                    bookingList[index].paymentAmount || 0
+                );
+
+
+            const rentalAmount =
+                Number(
+                    bookingList[index].price
+                );
+
+
+            const minimumPayment =
+                rentalAmount / 2;
+
+
+            if (
+                paymentAmount < minimumPayment
+            ) {
+
+                alert(
+                    "Payment is less than the required 50%."
+                );
+
+                return;
+
+            }
+
+
+            bookingList[index].paymentConfirmed =
+                true;
+
+
+            bookingList[index].paymentStatus =
+                "Confirmed";
+
+
+            localStorage.setItem(
+                "rentRockReturnBooking",
+                JSON.stringify(
+                    bookingList
+                )
+            );
+
+
+            alert(
+                "Payment verified successfully! Booking is now confirmed."
+            );
+
+
+            displayBookings();
+
+        }
+
+
+
+        /* =========================================
+           REJECT PAYMENT
+           ========================================= */
+
+        function rejectBooking(index) {
+
+            if (
+                !bookingList[index]
+            ) {
+                return;
+            }
+
+
+            const confirmReject =
+                confirm(
+                    "Are you sure you want to reject this payment?"
+                );
+
+
+            if (!confirmReject) {
+                return;
+            }
+
+
+            bookingList[index].paymentConfirmed =
+                false;
+
+
+            bookingList[index].paymentStatus =
+                "Payment Rejected";
+
+
+            bookingList[index].utr =
+                "";
+
+
+            bookingList[index].paymentAmount =
+                0;
+
+
+            localStorage.setItem(
+                "rentRockReturnBooking",
+                JSON.stringify(
+                    bookingList
+                )
+            );
+
+
+            alert(
+                "Payment rejected."
+            );
+
+
+            displayBookings();
+
+        }
+
+
+
+        /* =========================================
+           LOAD
+           ========================================= */
+
+        displayBookings();
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Your Outfit | Rent Rock Return</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">
+            Rent Rock Return
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#outfits">Outfits</a>
+            <a href="my-booking.html">My Booking</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Booking Page -->
+    <section class="booking-page">
+
+        <div class="booking-container">
+
+            <p class="small-title">
+                RENT ROCK RETURN
+            </p>
+
+
+            <h1>
+                Complete Your Booking
+            </h1>
+
+
+            <p class="booking-intro">
+                Enter your details and complete your booking.
+            </p>
+
+
+            <!-- Customer Details -->
+            <div class="form-section">
+
+                <h2>
+                    Customer Details
+                </h2>
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        WhatsApp / Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Enter your mobile number"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        rows="3"
+                        placeholder="Enter your address"
+                        required
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- Selected Outfits -->
+            <div class="form-section">
+
+                <h2>
+                    Your Selected Outfits
+                </h2>
+
+
+                <div id="selected-outfits">
+
+                    <!-- Selected outfits will appear here -->
+
+                </div>
+
+            </div>
+
+
+            <!-- Rental Information -->
+            <div class="form-section">
+
+                <h2>
+                    Rental Information
+                </h2>
+
+
+                <p class="payment-note">
+                    Each outfit can be rented for a different Navratri date.
+                    Return date will automatically be the next day.
+                </p>
+
+
+                <p class="payment-note">
+                    Navratri 2026: 11 October to 19 October
+                </p>
+
+
+                <p class="pickup-note">
+                    📍 Self Pickup Only — Delivery is not available.
+                </p>
+
+            </div>
+
+
+            <!-- Payment Information -->
+            <div class="form-section">
+
+                <h2>
+                    Payment Information
+                </h2>
+
+
+                <div class="payment-summary">
+
+                    <p>
+                        <strong>
+                            Total Rental Amount:
+                        </strong>
+
+                        <span id="total-rental">
+                            ₹0
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <strong>
+                            Minimum Payment Required:
+                        </strong>
+
+                        <span id="minimum-payment">
+                            ₹0
+                        </span>
+                    </p>
+
+                </div>
+
+
+                <p class="payment-note">
+
+                    You can pay 50% or more of the rental amount,
+                    up to the full amount.
+
+                </p>
+
+
+                <p class="payment-note">
+
+                    Your booking will be confirmed only after
+                    the required payment is successfully completed.
+
+                </p>
+
+            </div>
+
+
+            <!-- Important Information -->
+            <div class="form-section">
+
+                <h2>
+                    Important Information
+                </h2>
+
+
+                <ul class="booking-notes">
+
+                    <li>
+                        All outfits are available in Free Size.
+                    </li>
+
+
+                    <li>
+                        Blouse alteration is available for ₹30.
+                    </li>
+
+
+                    <li>
+                        Self Pickup Only — Delivery is not available.
+                    </li>
+
+
+                    <li>
+                        Return will be on the next day of the rental date.
+                    </li>
+
+
+                    <li>
+                        Each selected outfit may have a different rental date.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Payment Button -->
+            <button
+                type="button"
+                class="btn booking-submit"
+                id="payment-button"
+            >
+                Continue to Payment
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Rent Rock Return. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        /* =========================================
+           LOAD BOOKING LIST
+           ========================================= */
+
+        const bookingList =
+            JSON.parse(
+                localStorage.getItem(
+                    "rentRockReturnBooking"
+                )
+            ) || [];
+
+
+        const selectedOutfits =
+            document.getElementById(
+                "selected-outfits"
+            );
+
+
+        const totalRental =
+            document.getElementById(
+                "total-rental"
+            );
+
+
+        const minimumPayment =
+            document.getElementById(
+                "minimum-payment"
+            );
+
+
+        const paymentButton =
+            document.getElementById(
+                "payment-button"
+            );
+
+
+        /* =========================================
+           FORMAT DATE
+           ========================================= */
+
+        function formatDate(dateString) {
+
+            const date =
+                new Date(
+                    dateString + "T00:00:00"
+                );
+
+
+            const day =
+                String(
+                    date.getDate()
+                ).padStart(2, "0");
+
+
+            const month =
+                String(
+                    date.getMonth() + 1
+                ).padStart(2, "0");
+
+
+            const year =
+                date.getFullYear();
+
+
+            return `${day}/${month}/${year}`;
+
+        }
+
+
+        /* =========================================
+           DISPLAY SELECTED OUTFITS
+           ========================================= */
+
+        function displaySelectedOutfits() {
+
+            if (bookingList.length === 0) {
+
+                selectedOutfits.innerHTML = `
+
+                    <div class="empty-booking">
+
+                        <h3>
+                            No outfits selected
+                        </h3>
+
+                        <p>
+                            Please add an outfit to your booking first.
+                        </p>
+
+                        <a
+                            href="index.html#outfits"
+                            class="btn"
+                        >
+                            Explore Outfits
+                        </a>
+
+                    </div>
+
+                `;
+
+
+                paymentButton.disabled = true;
+
+                return;
+
+            }
+
+
+            selectedOutfits.innerHTML = "";
+
+
+            let total = 0;
+
+
+            bookingList.forEach(
+                function(item) {
+
+                    total += Number(
+                        item.price
+                    );
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "booking-item";
+
+
+                    card.innerHTML = `
+
+                        <div>
+
+                            <h3>
+                                ${item.name}
+                            </h3>
+
+                            <p>
+                                ₹${item.price} / Day
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Rental Date:
+                                </strong>
+
+                                ${formatDate(
+                                    item.rentalDate
+                                )}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Return Date:
+                                </strong>
+
+                                ${formatDate(
+                                    item.returnDate
+                                )}
+                            </p>
+
+                        </div>
+
+                    `;
+
+
+                    selectedOutfits.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+
+            totalRental.textContent =
+                "₹" + total;
+
+
+            minimumPayment.textContent =
+                "₹" + Math.ceil(
+                    total / 2
+                );
+
+        }
+
+
+        /* =========================================
+           PAYMENT BUTTON
+           ========================================= */
+
+        paymentButton.addEventListener(
+            "click",
+            function() {
+
+                const name =
+                    document.getElementById(
+                        "name"
+                    ).value.trim();
+
+
+                const phone =
+                    document.getElementById(
+                        "phone"
+                    ).value.trim();
+
+
+                const address =
+                    document.getElementById(
+                        "address"
+                    ).value.trim();
+
+
+                if (!name) {
+
+                    alert(
+                        "Please enter your full name."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!phone) {
+
+                    alert(
+                        "Please enter your WhatsApp / Mobile Number."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!address) {
+
+                    alert(
+                        "Please enter your address."
+                    );
+
+                    return;
+
+                }
+
+
+                if (bookingList.length === 0) {
+
+                    alert(
+                        "Please select an outfit first."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Customer details are temporarily
+                 * saved for the payment step.
+                 */
+
+                const customerDetails = {
+
+                    name: name,
+
+                    phone: phone,
+
+                    address: address,
+
+                    outfits: bookingList
+
+                };
+
+
+                localStorage.setItem(
+                    "rentRockReturnCustomer",
+                    JSON.stringify(
+                        customerDetails
+                    )
+                );
+
+
+                /*
+                 * Payment gateway will be connected
+                 * here in the next step.
+                 */
+
+                alert(
+                    "Details saved. Payment section will open next."
+                );
+
+            }
+        );
+
+
+        /* Display */
+        displaySelectedOutfits();
+
+    </script>
+
+</body>
+
+</html>

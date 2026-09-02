@@ -1,0 +1,1137 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | Rent Rock Return</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Razorpay Checkout -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         NAVIGATION
+         ================================ -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Rent Rock Return
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#outfits">
+                Outfits
+            </a>
+
+            <a href="my-booking.html">
+                My Booking
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================================
+         PAYMENT PAGE
+         ================================ -->
+
+    <section class="booking-page">
+
+        <div class="booking-container">
+
+
+            <p class="small-title">
+                RENT ROCK RETURN
+            </p>
+
+
+            <h1>
+                Complete Your Payment
+            </h1>
+
+
+            <p class="booking-intro">
+                Choose your payment amount and complete the payment securely.
+            </p>
+
+
+
+            <!-- ================================
+                 BOOKING SUMMARY
+                 ================================ -->
+
+            <div class="form-section">
+
+                <h2>
+                    Booking Summary
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Total Rental Amount
+                    </span>
+
+                    <strong id="total-amount">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Minimum Payment (50%)
+                    </span>
+
+                    <strong id="minimum-payment">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 PAYMENT OPTIONS
+                 ================================ -->
+
+            <div class="form-section">
+
+                <h2>
+                    Choose Payment Amount
+                </h2>
+
+
+                <div class="payment-options">
+
+
+                    <!-- 50% PAYMENT -->
+
+                    <label class="outfit-option">
+
+                        <input
+                            type="radio"
+                            name="payment-option"
+                            value="advance"
+                        >
+
+                        <span>
+
+                            Pay 50% Advance
+
+                            <strong id="advance-option">
+                                ₹0
+                            </strong>
+
+                        </span>
+
+                    </label>
+
+
+
+                    <!-- FULL PAYMENT -->
+
+                    <label class="outfit-option">
+
+                        <input
+                            type="radio"
+                            name="payment-option"
+                            value="full"
+                        >
+
+                        <span>
+
+                            Pay Full Amount
+
+                            <strong id="full-option">
+                                ₹0
+                            </strong>
+
+                        </span>
+
+                    </label>
+
+
+                </div>
+
+
+                <p class="payment-note">
+
+                    You may pay 50% or more of the rental
+                    amount, up to the full amount.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ================================
+                 UPI PAYMENT
+                 ================================ -->
+
+            <div
+                class="form-section"
+                id="upi-section"
+                style="display:none;"
+            >
+
+                <h2>
+                    Pay Using UPI
+                </h2>
+
+
+                <p class="payment-note">
+
+                    You can also pay directly using UPI.
+
+                </p>
+
+
+
+                <!-- QR CODE -->
+
+                <div
+                    style="
+                        text-align:center;
+                        margin:25px 0;
+                    "
+                >
+
+                    <img
+                        id="upi-qr"
+                        src=""
+                        alt="UPI Payment QR Code"
+                        style="
+                            width:220px;
+                            height:220px;
+                            border-radius:10px;
+                        "
+                    >
+
+                </div>
+
+
+
+                <!-- PAYABLE AMOUNT -->
+
+                <div class="payable-box">
+
+                    <strong>
+                        Payable Amount:
+                    </strong>
+
+                    <span id="payable-amount">
+                        ₹0
+                    </span>
+
+                </div>
+
+
+
+                <!-- UPI ID -->
+
+                <p
+                    style="
+                        text-align:center;
+                        margin-top:20px;
+                    "
+                >
+
+                    <strong>
+                        UPI ID
+                    </strong>
+
+                    <br>
+
+                    <span>
+                        7999891107@ybl
+                    </span>
+
+                </p>
+
+
+
+                <!-- PAY VIA UPI APP -->
+
+                <div
+                    style="
+                        text-align:center;
+                        margin-top:20px;
+                    "
+                >
+
+                    <a
+                        id="upi-pay-button"
+                        href="#"
+                        class="btn"
+                    >
+                        Pay via UPI App
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 RAZORPAY PAYMENT
+                 ================================ -->
+
+            <div
+                class="form-section"
+                id="razorpay-section"
+                style="display:none;"
+            >
+
+                <h2>
+                    Pay Securely with Razorpay
+                </h2>
+
+
+                <p class="payment-note">
+
+                    Pay securely using UPI, cards,
+                    net banking or other supported payment methods.
+
+                </p>
+
+
+
+                <div
+                    style="
+                        text-align:center;
+                        margin-top:20px;
+                    "
+                >
+
+                    <button
+                        type="button"
+                        class="btn booking-submit"
+                        id="razorpay-payment"
+                    >
+                        Pay Securely with Razorpay
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 IMPORTANT INFORMATION
+                 ================================ -->
+
+            <div class="form-section">
+
+                <h2>
+                    Important Information
+                </h2>
+
+
+                <ul class="booking-notes">
+
+                    <li>
+                        Minimum 50% payment is required
+                        to confirm your booking.
+                    </li>
+
+
+                    <li>
+                        You may pay 50% or any amount
+                        above 50%, up to the full amount.
+                    </li>
+
+
+                    <li>
+                        Razorpay payments are processed
+                        through secure checkout.
+                    </li>
+
+
+                    <li>
+                        Your booking will be confirmed
+                        only after successful payment verification.
+                    </li>
+
+
+                    <li>
+                        Please bring your original Aadhaar Card
+                        at the time of dress pickup.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- ================================
+                 CONTINUE TO PAYMENT
+                 ================================ -->
+
+            <button
+                type="button"
+                class="btn booking-submit"
+                id="continue-payment"
+            >
+                Continue to Payment
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================
+         FOOTER
+         ================================ -->
+
+    <footer>
+
+        <p>
+            © 2026 Rent Rock Return. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <script>
+
+
+        /* =========================================
+           GET BOOKING LIST
+           ========================================= */
+
+        let bookingList =
+            JSON.parse(
+                localStorage.getItem(
+                    "rentRockReturnBooking"
+                )
+            ) || [];
+
+
+
+        /* =========================================
+           ELEMENTS
+           ========================================= */
+
+        const totalAmount =
+            document.getElementById(
+                "total-amount"
+            );
+
+
+        const minimumPayment =
+            document.getElementById(
+                "minimum-payment"
+            );
+
+
+        const advanceOption =
+            document.getElementById(
+                "advance-option"
+            );
+
+
+        const fullOption =
+            document.getElementById(
+                "full-option"
+            );
+
+
+        const upiSection =
+            document.getElementById(
+                "upi-section"
+            );
+
+
+        const razorpaySection =
+            document.getElementById(
+                "razorpay-section"
+            );
+
+
+        const continuePayment =
+            document.getElementById(
+                "continue-payment"
+            );
+
+
+        const payableAmount =
+            document.getElementById(
+                "payable-amount"
+            );
+
+
+        const qr =
+            document.getElementById(
+                "upi-qr"
+            );
+
+
+        const upiPayButton =
+            document.getElementById(
+                "upi-pay-button"
+            );
+
+
+        const razorpayPayment =
+            document.getElementById(
+                "razorpay-payment"
+            );
+
+
+
+        /* =========================================
+           CALCULATE TOTAL
+           ========================================= */
+
+        let total = 0;
+
+
+        bookingList.forEach(
+            function(item) {
+
+                total += Number(
+                    item.price
+                );
+
+            }
+        );
+
+
+        const minimum =
+            Math.ceil(
+                total / 2
+            );
+
+
+
+        /* =========================================
+           DISPLAY AMOUNTS
+           ========================================= */
+
+        totalAmount.textContent =
+            "₹" + total;
+
+
+        minimumPayment.textContent =
+            "₹" + minimum;
+
+
+        advanceOption.textContent =
+            "₹" + minimum;
+
+
+        fullOption.textContent =
+            "₹" + total;
+
+
+
+        /* =========================================
+           GET SELECTED PAYMENT AMOUNT
+           ========================================= */
+
+        function getSelectedPaymentAmount() {
+
+            const selected =
+                document.querySelector(
+                    'input[name="payment-option"]:checked'
+                );
+
+
+            if (!selected) {
+
+                return 0;
+
+            }
+
+
+            if (
+                selected.value === "advance"
+            ) {
+
+                return minimum;
+
+            }
+
+
+            if (
+                selected.value === "full"
+            ) {
+
+                return total;
+
+            }
+
+
+            return 0;
+
+        }
+
+
+
+        /* =========================================
+           GENERATE UPI QR
+           ========================================= */
+
+        function generateQR(amount) {
+
+            const upiID =
+                "7999891107@ybl";
+
+
+            const businessName =
+                "Rent Rock Return";
+
+
+            const upiURL =
+                "upi://pay" +
+                "?pa=" +
+                encodeURIComponent(
+                    upiID
+                ) +
+                "&pn=" +
+                encodeURIComponent(
+                    businessName
+                ) +
+                "&am=" +
+                encodeURIComponent(
+                    amount
+                ) +
+                "&cu=INR";
+
+
+            qr.src =
+                "https://quickchart.io/qr?text=" +
+                encodeURIComponent(
+                    upiURL
+                ) +
+                "&size=300";
+
+
+            upiPayButton.href =
+                upiURL;
+
+
+            payableAmount.textContent =
+                "₹" + amount;
+
+        }
+
+
+
+        /* =========================================
+           CONTINUE TO PAYMENT
+           ========================================= */
+
+        continuePayment.addEventListener(
+            "click",
+            function() {
+
+
+                if (
+                    bookingList.length === 0
+                ) {
+
+                    alert(
+                        "Your booking list is empty."
+                    );
+
+
+                    window.location.href =
+                        "index.html#outfits";
+
+
+                    return;
+
+                }
+
+
+
+                const paymentAmount =
+                    getSelectedPaymentAmount();
+
+
+
+                if (
+                    paymentAmount <= 0
+                ) {
+
+                    alert(
+                        "Please select a payment option."
+                    );
+
+
+                    return;
+
+                }
+
+
+
+                /* Generate UPI QR */
+
+                generateQR(
+                    paymentAmount
+                );
+
+
+
+                /* Show UPI */
+
+                upiSection.style.display =
+                    "block";
+
+
+
+                /* Show Razorpay */
+
+                razorpaySection.style.display =
+                    "block";
+
+
+
+                /* Hide Continue button */
+
+                continuePayment.style.display =
+                    "none";
+
+
+
+                /* Scroll to payment */
+
+                upiSection.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+
+
+        /* =========================================
+           RAZORPAY PAYMENT
+           ========================================= */
+
+        razorpayPayment.addEventListener(
+            "click",
+            async function() {
+
+
+                const paymentAmount =
+                    getSelectedPaymentAmount();
+
+
+
+                if (
+                    paymentAmount <= 0
+                ) {
+
+                    alert(
+                        "Please select a payment option."
+                    );
+
+
+                    return;
+
+                }
+
+
+
+                razorpayPayment.disabled =
+                    true;
+
+
+                razorpayPayment.textContent =
+                    "Opening Payment...";
+
+
+
+                try {
+
+
+                    /* =============================
+                       CREATE ORDER
+                       ============================= */
+
+                    const response =
+                        await fetch(
+                            "http://127.0.0.1:8000/create-order",
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        amount:
+                                            paymentAmount
+
+                                    })
+
+                            }
+                        );
+
+
+
+                    const data =
+                        await response.json();
+
+
+
+                    if (
+                        !response.ok
+                    ) {
+
+                        throw new Error(
+                            data.detail ||
+                            "Unable to create payment order."
+                        );
+
+                    }
+
+
+
+                    /*
+                     * Razorpay Checkout requires
+                     * amount in paise.
+                     */
+
+                    const razorpayAmount =
+                        paymentAmount * 100;
+
+
+
+                    /* =============================
+                       RAZORPAY OPTIONS
+                       ============================= */
+
+                    const options = {
+
+                        key:
+                            data.key_id,
+
+
+                        amount:
+                            razorpayAmount,
+
+
+                        currency:
+                            "INR",
+
+
+                        name:
+                            "Rent Rock Return",
+
+
+                        description:
+                            "Navratri Outfit Rental Booking",
+
+
+                        order_id:
+                            data.order_id,
+
+
+                        handler:
+                            async function(
+                                paymentResponse
+                            ) {
+
+
+                                console.log(
+                                    "Payment ID:",
+                                    paymentResponse.razorpay_payment_id
+                                );
+
+
+                                console.log(
+                                    "Order ID:",
+                                    paymentResponse.razorpay_order_id
+                                );
+
+
+                                console.log(
+                                    "Signature:",
+                                    paymentResponse.razorpay_signature
+                                );
+
+
+
+                                try {
+
+
+                                    /* =============================
+                                       VERIFY PAYMENT
+                                       ============================= */
+
+                                    const verifyResponse =
+                                        await fetch(
+                                            "http://127.0.0.1:8000/verify-payment",
+                                            {
+
+                                                method:
+                                                    "POST",
+
+                                                headers: {
+
+                                                    "Content-Type":
+                                                        "application/json"
+
+                                                },
+
+                                                body:
+                                                    JSON.stringify({
+
+                                                        razorpay_payment_id:
+                                                            paymentResponse.razorpay_payment_id,
+
+                                                        razorpay_order_id:
+                                                            paymentResponse.razorpay_order_id,
+
+                                                        razorpay_signature:
+                                                            paymentResponse.razorpay_signature
+
+                                                    })
+
+                                            }
+                                        );
+
+
+
+                                    const verifyData =
+                                        await verifyResponse.json();
+
+
+
+                                    if (
+                                        !verifyResponse.ok
+                                    ) {
+
+                                        throw new Error(
+                                            verifyData.detail ||
+                                            "Payment verification failed."
+                                        );
+
+                                    }
+
+
+
+                                    /* =============================
+                                       MARK BOOKING CONFIRMED
+                                       ============================= */
+
+                                    bookingList =
+                                        bookingList.map(
+                                            function(item) {
+
+                                                return {
+
+                                                    ...item,
+
+                                                    paymentAmount:
+                                                        paymentAmount,
+
+                                                    paymentConfirmed:
+                                                        true,
+
+                                                    paymentStatus:
+                                                        "Paid",
+
+                                                    razorpayPaymentId:
+                                                        paymentResponse.razorpay_payment_id,
+
+                                                    razorpayOrderId:
+                                                        paymentResponse.razorpay_order_id
+
+                                                };
+
+                                            }
+                                        );
+
+
+
+                                    /* =============================
+                                       SAVE BOOKING
+                                       ============================= */
+
+                                    localStorage.setItem(
+                                        "rentRockReturnBooking",
+                                        JSON.stringify(
+                                            bookingList
+                                        )
+                                    );
+
+
+
+                                    console.log(
+                                        "Payment verified successfully:",
+                                        verifyData
+                                    );
+
+
+
+                                    alert(
+                                        "Payment successful and verified! 🎉"
+                                    );
+
+
+
+                                    window.location.href =
+                                        "my-booking.html";
+
+                                }
+
+
+                                catch (error) {
+
+
+                                    console.error(
+                                        "Payment Verification Error:",
+                                        error
+                                    );
+
+
+                                    alert(
+                                        "Payment was completed, but verification failed.\n\nPlease contact Rent Rock Return."
+                                    );
+
+
+                                    razorpayPayment.disabled =
+                                        false;
+
+
+                                    razorpayPayment.textContent =
+                                        "Pay Securely with Razorpay";
+
+                                }
+
+                            },
+
+
+                        modal: {
+
+                            ondismiss:
+                                function() {
+
+                                    console.log(
+                                        "Razorpay checkout closed."
+                                    );
+
+
+                                    razorpayPayment.disabled =
+                                        false;
+
+
+                                    razorpayPayment.textContent =
+                                        "Pay Securely with Razorpay";
+
+                                }
+
+                        },
+
+
+                        theme: {
+
+                            color:
+                                "#000000"
+
+                        }
+
+                    };
+
+
+
+                    /* =============================
+                       OPEN RAZORPAY
+                       ============================= */
+
+                    const razorpay =
+                        new Razorpay(
+                            options
+                        );
+
+
+                    razorpay.open();
+
+
+                }
+
+
+                catch (error) {
+
+
+                    console.error(
+                        "Razorpay Error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Payment could not be started: " +
+                        error.message
+                    );
+
+
+                    razorpayPayment.disabled =
+                        false;
+
+
+                    razorpayPayment.textContent =
+                        "Pay Securely with Razorpay";
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
+```
