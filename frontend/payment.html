@@ -15,11 +15,12 @@
 
 </head>
 
+
 <body>
 
     <!-- ================================
          NAVIGATION
-         ================================ -->
+         ================================= -->
 
     <nav class="navbar">
 
@@ -52,7 +53,7 @@
 
     <!-- ================================
          PAYMENT PAGE
-         ================================ -->
+         ================================= -->
 
     <section class="booking-page">
 
@@ -73,7 +74,7 @@
 
             <!-- ================================
                  BOOKING SUMMARY
-                 ================================ -->
+                 ================================= -->
 
             <div class="form-section">
 
@@ -93,6 +94,7 @@
 
                 </div>
 
+
                 <div class="summary-row">
 
                     <span>
@@ -110,7 +112,7 @@
 
             <!-- ================================
                  PAYMENT OPTIONS
-                 ================================ -->
+                 ================================= -->
 
             <div class="form-section">
 
@@ -119,6 +121,7 @@
                 </h2>
 
                 <div class="payment-options">
+
 
                     <!-- 50% PAYMENT -->
 
@@ -167,6 +170,7 @@
 
                 </div>
 
+
                 <p class="payment-note">
 
                     You may pay 50% or more of the rental
@@ -179,17 +183,18 @@
 
             <!-- ================================
                  UPI PAYMENT
-                 ================================ -->
+                 ================================= -->
 
             <div
                 class="form-section"
                 id="upi-section"
-                style="display:none;"
+                style="display: none;"
             >
 
                 <h2>
                     Pay Using UPI
                 </h2>
+
 
                 <p class="payment-note">
 
@@ -202,8 +207,8 @@
 
                 <div
                     style="
-                        text-align:center;
-                        margin:25px 0;
+                        text-align: center;
+                        margin: 25px 0;
                     "
                 >
 
@@ -212,9 +217,9 @@
                         src=""
                         alt="UPI Payment QR Code"
                         style="
-                            width:220px;
-                            height:220px;
-                            border-radius:10px;
+                            width: 220px;
+                            height: 220px;
+                            border-radius: 10px;
                         "
                     >
 
@@ -240,8 +245,8 @@
 
                 <p
                     style="
-                        text-align:center;
-                        margin-top:20px;
+                        text-align: center;
+                        margin-top: 20px;
                     "
                 >
 
@@ -262,8 +267,8 @@
 
                 <div
                     style="
-                        text-align:center;
-                        margin-top:20px;
+                        text-align: center;
+                        margin-top: 20px;
                     "
                 >
 
@@ -282,17 +287,18 @@
 
             <!-- ================================
                  RAZORPAY PAYMENT
-                 ================================ -->
+                 ================================= -->
 
             <div
                 class="form-section"
                 id="razorpay-section"
-                style="display:none;"
+                style="display: none;"
             >
 
                 <h2>
                     Pay Securely with Razorpay
                 </h2>
+
 
                 <p class="payment-note">
 
@@ -301,10 +307,11 @@
 
                 </p>
 
+
                 <div
                     style="
-                        text-align:center;
-                        margin-top:20px;
+                        text-align: center;
+                        margin-top: 20px;
                     "
                 >
 
@@ -323,13 +330,14 @@
 
             <!-- ================================
                  IMPORTANT INFORMATION
-                 ================================ -->
+                 ================================= -->
 
             <div class="form-section">
 
                 <h2>
                     Important Information
                 </h2>
+
 
                 <ul class="booking-notes">
 
@@ -365,7 +373,7 @@
 
             <!-- ================================
                  CONTINUE TO PAYMENT
-                 ================================ -->
+                 ================================= -->
 
             <button
                 type="button"
@@ -382,7 +390,7 @@
 
     <!-- ================================
          FOOTER
-         ================================ -->
+         ================================= -->
 
     <footer>
 
@@ -473,6 +481,7 @@
 
         let total = 0;
 
+
         bookingList.forEach(
             function(item) {
 
@@ -482,6 +491,7 @@
 
             }
         );
+
 
         const minimum =
             Math.ceil(
@@ -517,11 +527,13 @@
                     'input[name="payment-option"]:checked'
                 );
 
+
             if (!selected) {
 
                 return 0;
 
             }
+
 
             if (
                 selected.value === "advance"
@@ -531,6 +543,7 @@
 
             }
 
+
             if (
                 selected.value === "full"
             ) {
@@ -538,6 +551,7 @@
                 return total;
 
             }
+
 
             return 0;
 
@@ -553,8 +567,10 @@
             const upiID =
                 "7999891107@ybl";
 
+
             const businessName =
                 "Rent Rock Return";
+
 
             const upiURL =
                 "upi://pay" +
@@ -572,6 +588,7 @@
                 ) +
                 "&cu=INR";
 
+
             qr.src =
                 "https://quickchart.io/qr?text=" +
                 encodeURIComponent(
@@ -579,8 +596,10 @@
                 ) +
                 "&size=300";
 
+
             upiPayButton.href =
                 upiURL;
+
 
             payableAmount.textContent =
                 "₹" + amount;
@@ -596,6 +615,7 @@
             "click",
             function() {
 
+
                 if (
                     bookingList.length === 0
                 ) {
@@ -604,15 +624,19 @@
                         "Your booking list is empty."
                     );
 
+
                     window.location.href =
                         "index.html#outfits";
+
 
                     return;
 
                 }
 
+
                 const paymentAmount =
                     getSelectedPaymentAmount();
+
 
                 if (
                     paymentAmount <= 0
@@ -622,9 +646,11 @@
                         "Please select a payment option."
                     );
 
+
                     return;
 
                 }
+
 
                 /* Generate UPI QR */
 
@@ -632,20 +658,24 @@
                     paymentAmount
                 );
 
+
                 /* Show UPI */
 
                 upiSection.style.display =
                     "block";
+
 
                 /* Show Razorpay */
 
                 razorpaySection.style.display =
                     "block";
 
+
                 /* Hide Continue button */
 
                 continuePayment.style.display =
                     "none";
+
 
                 /* Scroll to payment */
 
@@ -665,8 +695,10 @@
             "click",
             async function() {
 
+
                 const paymentAmount =
                     getSelectedPaymentAmount();
+
 
                 if (
                     paymentAmount <= 0
@@ -676,18 +708,22 @@
                         "Please select a payment option."
                     );
 
+
                     return;
 
                 }
 
+
                 razorpayPayment.disabled =
                     true;
+
 
                 razorpayPayment.textContent =
                     "Opening Payment...";
 
 
                 try {
+
 
                     /* =============================
                        CREATE ORDER
@@ -736,10 +772,9 @@
                     }
 
 
-                    /*
-                     * Razorpay Checkout requires
-                     * amount in paise.
-                     */
+                    /* =================================
+                       RAZORPAY AMOUNT IN PAISE
+                       ================================= */
 
                     const razorpayAmount =
                         paymentAmount * 100;
@@ -769,20 +804,24 @@
                         order_id:
                             data.order_id,
 
+
                         handler:
                             async function(
                                 paymentResponse
                             ) {
+
 
                                 console.log(
                                     "Payment ID:",
                                     paymentResponse.razorpay_payment_id
                                 );
 
+
                                 console.log(
                                     "Order ID:",
                                     paymentResponse.razorpay_order_id
                                 );
+
 
                                 console.log(
                                     "Signature:",
@@ -791,6 +830,7 @@
 
 
                                 try {
+
 
                                     /* =============================
                                        VERIFY PAYMENT
@@ -909,17 +949,21 @@
 
                                 catch (error) {
 
+
                                     console.error(
                                         "Payment Verification Error:",
                                         error
                                     );
 
+
                                     alert(
                                         "Payment was completed, but verification failed.\n\nPlease contact Rent Rock Return."
                                     );
 
+
                                     razorpayPayment.disabled =
                                         false;
+
 
                                     razorpayPayment.textContent =
                                         "Pay Securely with Razorpay";
@@ -938,8 +982,10 @@
                                         "Razorpay checkout closed."
                                     );
 
+
                                     razorpayPayment.disabled =
                                         false;
+
 
                                     razorpayPayment.textContent =
                                         "Pay Securely with Razorpay";
@@ -968,6 +1014,7 @@
                             options
                         );
 
+
                     razorpay.open();
 
                 }
@@ -975,18 +1022,22 @@
 
                 catch (error) {
 
+
                     console.error(
                         "Razorpay Error:",
                         error
                     );
+
 
                     alert(
                         "Payment could not be started: " +
                         error.message
                     );
 
+
                     razorpayPayment.disabled =
                         false;
+
 
                     razorpayPayment.textContent =
                         "Pay Securely with Razorpay";
