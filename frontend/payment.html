@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,9 +15,7 @@
 
 </head>
 
-
 <body>
-
 
     <!-- ================================
          NAVIGATION
@@ -29,7 +26,6 @@
         <div class="logo">
             Rent Rock Return
         </div>
-
 
         <div class="nav-links">
 
@@ -54,7 +50,6 @@
     </nav>
 
 
-
     <!-- ================================
          PAYMENT PAGE
          ================================ -->
@@ -63,21 +58,17 @@
 
         <div class="booking-container">
 
-
             <p class="small-title">
                 RENT ROCK RETURN
             </p>
-
 
             <h1>
                 Complete Your Payment
             </h1>
 
-
             <p class="booking-intro">
                 Choose your payment amount and complete the payment securely.
             </p>
-
 
 
             <!-- ================================
@@ -90,7 +81,6 @@
                     Booking Summary
                 </h2>
 
-
                 <div class="summary-row">
 
                     <span>
@@ -102,7 +92,6 @@
                     </strong>
 
                 </div>
-
 
                 <div class="summary-row">
 
@@ -119,7 +108,6 @@
             </div>
 
 
-
             <!-- ================================
                  PAYMENT OPTIONS
                  ================================ -->
@@ -130,9 +118,7 @@
                     Choose Payment Amount
                 </h2>
 
-
                 <div class="payment-options">
-
 
                     <!-- 50% PAYMENT -->
 
@@ -157,7 +143,6 @@
                     </label>
 
 
-
                     <!-- FULL PAYMENT -->
 
                     <label class="outfit-option">
@@ -180,9 +165,7 @@
 
                     </label>
 
-
                 </div>
-
 
                 <p class="payment-note">
 
@@ -192,7 +175,6 @@
                 </p>
 
             </div>
-
 
 
             <!-- ================================
@@ -209,13 +191,11 @@
                     Pay Using UPI
                 </h2>
 
-
                 <p class="payment-note">
 
                     You can also pay directly using UPI.
 
                 </p>
-
 
 
                 <!-- QR CODE -->
@@ -241,7 +221,6 @@
                 </div>
 
 
-
                 <!-- PAYABLE AMOUNT -->
 
                 <div class="payable-box">
@@ -255,7 +234,6 @@
                     </span>
 
                 </div>
-
 
 
                 <!-- UPI ID -->
@@ -280,7 +258,6 @@
                 </p>
 
 
-
                 <!-- PAY VIA UPI APP -->
 
                 <div
@@ -303,7 +280,6 @@
             </div>
 
 
-
             <!-- ================================
                  RAZORPAY PAYMENT
                  ================================ -->
@@ -318,15 +294,12 @@
                     Pay Securely with Razorpay
                 </h2>
 
-
                 <p class="payment-note">
 
                     Pay securely using UPI, cards,
                     net banking or other supported payment methods.
 
                 </p>
-
-
 
                 <div
                     style="
@@ -348,7 +321,6 @@
             </div>
 
 
-
             <!-- ================================
                  IMPORTANT INFORMATION
                  ================================ -->
@@ -359,7 +331,6 @@
                     Important Information
                 </h2>
 
-
                 <ul class="booking-notes">
 
                     <li>
@@ -367,24 +338,20 @@
                         to confirm your booking.
                     </li>
 
-
                     <li>
                         You may pay 50% or any amount
                         above 50%, up to the full amount.
                     </li>
-
 
                     <li>
                         Razorpay payments are processed
                         through secure checkout.
                     </li>
 
-
                     <li>
                         Your booking will be confirmed
                         only after successful payment verification.
                     </li>
-
 
                     <li>
                         Please bring your original Aadhaar Card
@@ -394,7 +361,6 @@
                 </ul>
 
             </div>
-
 
 
             <!-- ================================
@@ -409,11 +375,9 @@
                 Continue to Payment
             </button>
 
-
         </div>
 
     </section>
-
 
 
     <!-- ================================
@@ -429,9 +393,7 @@
     </footer>
 
 
-
     <script>
-
 
         /* =========================================
            GET BOOKING LIST
@@ -445,7 +407,6 @@
             ) || [];
 
 
-
         /* =========================================
            ELEMENTS
            ========================================= */
@@ -455,60 +416,50 @@
                 "total-amount"
             );
 
-
         const minimumPayment =
             document.getElementById(
                 "minimum-payment"
             );
-
 
         const advanceOption =
             document.getElementById(
                 "advance-option"
             );
 
-
         const fullOption =
             document.getElementById(
                 "full-option"
             );
-
 
         const upiSection =
             document.getElementById(
                 "upi-section"
             );
 
-
         const razorpaySection =
             document.getElementById(
                 "razorpay-section"
             );
-
 
         const continuePayment =
             document.getElementById(
                 "continue-payment"
             );
 
-
         const payableAmount =
             document.getElementById(
                 "payable-amount"
             );
-
 
         const qr =
             document.getElementById(
                 "upi-qr"
             );
 
-
         const upiPayButton =
             document.getElementById(
                 "upi-pay-button"
             );
-
 
         const razorpayPayment =
             document.getElementById(
@@ -516,13 +467,11 @@
             );
 
 
-
         /* =========================================
            CALCULATE TOTAL
            ========================================= */
 
         let total = 0;
-
 
         bookingList.forEach(
             function(item) {
@@ -534,12 +483,10 @@
             }
         );
 
-
         const minimum =
             Math.ceil(
                 total / 2
             );
-
 
 
         /* =========================================
@@ -549,18 +496,14 @@
         totalAmount.textContent =
             "₹" + total;
 
-
         minimumPayment.textContent =
             "₹" + minimum;
-
 
         advanceOption.textContent =
             "₹" + minimum;
 
-
         fullOption.textContent =
             "₹" + total;
-
 
 
         /* =========================================
@@ -574,13 +517,11 @@
                     'input[name="payment-option"]:checked'
                 );
 
-
             if (!selected) {
 
                 return 0;
 
             }
-
 
             if (
                 selected.value === "advance"
@@ -590,7 +531,6 @@
 
             }
 
-
             if (
                 selected.value === "full"
             ) {
@@ -599,11 +539,9 @@
 
             }
 
-
             return 0;
 
         }
-
 
 
         /* =========================================
@@ -615,10 +553,8 @@
             const upiID =
                 "7999891107@ybl";
 
-
             const businessName =
                 "Rent Rock Return";
-
 
             const upiURL =
                 "upi://pay" +
@@ -636,7 +572,6 @@
                 ) +
                 "&cu=INR";
 
-
             qr.src =
                 "https://quickchart.io/qr?text=" +
                 encodeURIComponent(
@@ -644,16 +579,13 @@
                 ) +
                 "&size=300";
 
-
             upiPayButton.href =
                 upiURL;
-
 
             payableAmount.textContent =
                 "₹" + amount;
 
         }
-
 
 
         /* =========================================
@@ -664,7 +596,6 @@
             "click",
             function() {
 
-
                 if (
                     bookingList.length === 0
                 ) {
@@ -673,21 +604,15 @@
                         "Your booking list is empty."
                     );
 
-
                     window.location.href =
                         "index.html#outfits";
-
 
                     return;
 
                 }
 
-
-
                 const paymentAmount =
                     getSelectedPaymentAmount();
-
-
 
                 if (
                     paymentAmount <= 0
@@ -697,12 +622,9 @@
                         "Please select a payment option."
                     );
 
-
                     return;
 
                 }
-
-
 
                 /* Generate UPI QR */
 
@@ -710,28 +632,20 @@
                     paymentAmount
                 );
 
-
-
                 /* Show UPI */
 
                 upiSection.style.display =
                     "block";
-
-
 
                 /* Show Razorpay */
 
                 razorpaySection.style.display =
                     "block";
 
-
-
                 /* Hide Continue button */
 
                 continuePayment.style.display =
                     "none";
-
-
 
                 /* Scroll to payment */
 
@@ -743,7 +657,6 @@
         );
 
 
-
         /* =========================================
            RAZORPAY PAYMENT
            ========================================= */
@@ -752,11 +665,8 @@
             "click",
             async function() {
 
-
                 const paymentAmount =
                     getSelectedPaymentAmount();
-
-
 
                 if (
                     paymentAmount <= 0
@@ -766,24 +676,18 @@
                         "Please select a payment option."
                     );
 
-
                     return;
 
                 }
 
-
-
                 razorpayPayment.disabled =
                     true;
-
 
                 razorpayPayment.textContent =
                     "Opening Payment...";
 
 
-
                 try {
-
 
                     /* =============================
                        CREATE ORDER
@@ -791,7 +695,7 @@
 
                     const response =
                         await fetch(
-                            "http://127.0.0.1:8000/create-order",
+                            "https://rentrockreturn.onrender.com/create-order",
                             {
 
                                 method:
@@ -816,10 +720,8 @@
                         );
 
 
-
                     const data =
                         await response.json();
-
 
 
                     if (
@@ -834,7 +736,6 @@
                     }
 
 
-
                     /*
                      * Razorpay Checkout requires
                      * amount in paise.
@@ -842,7 +743,6 @@
 
                     const razorpayAmount =
                         paymentAmount * 100;
-
 
 
                     /* =============================
@@ -854,44 +754,35 @@
                         key:
                             data.key_id,
 
-
                         amount:
                             razorpayAmount,
-
 
                         currency:
                             "INR",
 
-
                         name:
                             "Rent Rock Return",
-
 
                         description:
                             "Navratri Outfit Rental Booking",
 
-
                         order_id:
                             data.order_id,
-
 
                         handler:
                             async function(
                                 paymentResponse
                             ) {
 
-
                                 console.log(
                                     "Payment ID:",
                                     paymentResponse.razorpay_payment_id
                                 );
 
-
                                 console.log(
                                     "Order ID:",
                                     paymentResponse.razorpay_order_id
                                 );
-
 
                                 console.log(
                                     "Signature:",
@@ -899,9 +790,7 @@
                                 );
 
 
-
                                 try {
-
 
                                     /* =============================
                                        VERIFY PAYMENT
@@ -909,7 +798,7 @@
 
                                     const verifyResponse =
                                         await fetch(
-                                            "http://127.0.0.1:8000/verify-payment",
+                                            "https://rentrockreturn.onrender.com/verify-payment",
                                             {
 
                                                 method:
@@ -940,10 +829,8 @@
                                         );
 
 
-
                                     const verifyData =
                                         await verifyResponse.json();
-
 
 
                                     if (
@@ -956,7 +843,6 @@
                                         );
 
                                     }
-
 
 
                                     /* =============================
@@ -992,7 +878,6 @@
                                         );
 
 
-
                                     /* =============================
                                        SAVE BOOKING
                                        ============================= */
@@ -1005,18 +890,15 @@
                                     );
 
 
-
                                     console.log(
                                         "Payment verified successfully:",
                                         verifyData
                                     );
 
 
-
                                     alert(
                                         "Payment successful and verified! 🎉"
                                     );
-
 
 
                                     window.location.href =
@@ -1027,21 +909,17 @@
 
                                 catch (error) {
 
-
                                     console.error(
                                         "Payment Verification Error:",
                                         error
                                     );
 
-
                                     alert(
                                         "Payment was completed, but verification failed.\n\nPlease contact Rent Rock Return."
                                     );
 
-
                                     razorpayPayment.disabled =
                                         false;
-
 
                                     razorpayPayment.textContent =
                                         "Pay Securely with Razorpay";
@@ -1060,10 +938,8 @@
                                         "Razorpay checkout closed."
                                     );
 
-
                                     razorpayPayment.disabled =
                                         false;
-
 
                                     razorpayPayment.textContent =
                                         "Pay Securely with Razorpay";
@@ -1083,7 +959,6 @@
                     };
 
 
-
                     /* =============================
                        OPEN RAZORPAY
                        ============================= */
@@ -1093,31 +968,25 @@
                             options
                         );
 
-
                     razorpay.open();
-
 
                 }
 
 
                 catch (error) {
 
-
                     console.error(
                         "Razorpay Error:",
                         error
                     );
-
 
                     alert(
                         "Payment could not be started: " +
                         error.message
                     );
 
-
                     razorpayPayment.disabled =
                         false;
-
 
                     razorpayPayment.textContent =
                         "Pay Securely with Razorpay";
@@ -1127,11 +996,8 @@
             }
         );
 
-
     </script>
-
 
 </body>
 
 </html>
-```
